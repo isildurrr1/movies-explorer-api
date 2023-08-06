@@ -25,17 +25,38 @@ const movieSchema = new mongoose.Schema({
   image: {
     type: String,
     required: true,
-    validate: { validator: (value) => validator.isUrl(value) },
+    validate: {
+      validator: (value) => validator.isURL(value, {
+        require_protocol: true,
+        require_valid_protocol: true,
+        protocols: ['http', 'https'],
+      }),
+      message: 'Некорректная ссылка',
+    },
   },
   trailerLink: {
     type: String,
     required: true,
-    validate: { validator: (value) => validator.isUrl(value) },
+    validate: {
+      validator: (value) => validator.isURL(value, {
+        require_protocol: true,
+        require_valid_protocol: true,
+        protocols: ['http', 'https'],
+      }),
+      message: 'Некорректная ссылка',
+    },
   },
   thumbnail: {
     type: String,
     required: true,
-    validate: { validator: (value) => validator.isUrl(value) },
+    validate: {
+      validator: (value) => validator.isURL(value, {
+        require_protocol: true,
+        require_valid_protocol: true,
+        protocols: ['http', 'https'],
+      }),
+      message: 'Некорректная ссылка',
+    },
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
@@ -56,4 +77,4 @@ const movieSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('user', movieSchema);
+module.exports = mongoose.model('movie', movieSchema);
