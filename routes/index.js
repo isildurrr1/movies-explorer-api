@@ -11,6 +11,7 @@ const {
 } = require('../middlewares/validation');
 
 const auth = require('../middlewares/auth');
+const { NOT_FOUND_MESSAGE } = require('../utils/constants');
 
 router.post('/signin', loginValid, login);
 router.post('/signup', createUserValid, createUser);
@@ -20,7 +21,7 @@ router.use(auth);
 router.use('/users', userRouter);
 router.use('/movies', movieRouter);
 router.use('/*', (req, res, next) => {
-  next(new NotFoundError('Не найдено'));
+  next(new NotFoundError(NOT_FOUND_MESSAGE));
 });
 
 module.exports = router;

@@ -1,6 +1,5 @@
 const { celebrate, Joi } = require('celebrate');
-
-const linkRegEx = /^((http|https|ftp):\/\/)?(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+)/i;
+const { LINK_VALIDATION_REG_EXP } = require('../utils/constants');
 
 const loginValid = celebrate({
   body: Joi.object().keys({
@@ -31,11 +30,11 @@ const createMovieValid = celebrate({
     duration: Joi.number().required(),
     year: Joi.string().required().length(4),
     description: Joi.string().required(),
-    image: Joi.string().required().pattern(linkRegEx),
-    trailerLink: Joi.string().required().pattern(linkRegEx),
+    image: Joi.string().required().pattern(LINK_VALIDATION_REG_EXP),
+    trailerLink: Joi.string().required().pattern(LINK_VALIDATION_REG_EXP),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
-    thumbnail: Joi.string().required().pattern(linkRegEx),
+    thumbnail: Joi.string().required().pattern(LINK_VALIDATION_REG_EXP),
     movieId: Joi.number().required(),
   }),
 });

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const { LINK_ERROR_VALID_MESSAGE } = require('../utils/constants');
 
 const movieSchema = new mongoose.Schema({
   country: {
@@ -31,7 +32,7 @@ const movieSchema = new mongoose.Schema({
         require_valid_protocol: true,
         protocols: ['http', 'https'],
       }),
-      message: 'Некорректная ссылка',
+      message: LINK_ERROR_VALID_MESSAGE,
     },
   },
   trailerLink: {
@@ -43,7 +44,7 @@ const movieSchema = new mongoose.Schema({
         require_valid_protocol: true,
         protocols: ['http', 'https'],
       }),
-      message: 'Некорректная ссылка',
+      message: LINK_ERROR_VALID_MESSAGE,
     },
   },
   thumbnail: {
@@ -55,7 +56,7 @@ const movieSchema = new mongoose.Schema({
         require_valid_protocol: true,
         protocols: ['http', 'https'],
       }),
-      message: 'Некорректная ссылка',
+      message: LINK_ERROR_VALID_MESSAGE,
     },
   },
   owner: {
