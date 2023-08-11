@@ -30,7 +30,17 @@ module.exports.updateProfile = (req, res, next) => {
   User.findByIdAndUpdate(req.user._id, { email, name }, { new: true, runValidators: true })
     .orFail(() => { throw new NotFoundError(NOT_FOUND_MESSAGE); })
     .then((user) => res.send(user))
-    .catch(next);
+    .catch((err) => {
+      if (err.code === 11000) {
+        next(new ConflictError(USER_EXISTS_MESSAGE));
+        return;
+      }
+      if (err instanceof mongooseError.ValidationError) {
+        next(new IncorrectData(INCORRECT_MESSAGE));
+        return;
+      }
+      next(err);
+    });
 };
 
 module.exports.createUser = (req, res, next) => {
